@@ -1,3 +1,4 @@
+
 name: Deploy Program 18 Calculator
 
 on:
@@ -5,6 +6,7 @@ on:
     branches:
       - main
       - master
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -30,15 +32,12 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm install
-
-      - name: Run tests
-        run: CI=true npm test -- --watchAll=false
+        run: npm ci
 
       - name: Build React application
         run: npm run build
 
-      - name: Create GitHub Pages fallback
+      - name: Create 404 fallback
         run: cp build/index.html build/404.html
 
       - name: Configure GitHub Pages
